@@ -43,8 +43,6 @@ jobs:
         DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
       run: |
         export PYTHONPATH=.
-        # Si usas Alembic para las migraciones:
-        alembic upgrade head
-        # O si prefieres ejecutar tu script de inicialización:
+        # Ejecuta tu script seed.py que inicializa las tablas y datos
         python seed.py
         pytest --cov=src --cov-report=term-missing
