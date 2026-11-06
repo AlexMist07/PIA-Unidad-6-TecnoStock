@@ -43,4 +43,6 @@ jobs:
         DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
       run: |
         export PYTHONPATH=.
+        # Crear las tablas en la base de datos de prueba antes de correr pytest
+        python -c "from src.infrastructure.database import Base, engine; Base.metadata.create_all(bind=engine)"
         pytest --cov=src --cov-report=term-missing
