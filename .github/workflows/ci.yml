@@ -43,6 +43,8 @@ jobs:
         DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
       run: |
         export PYTHONPATH=.
-        # Crear las tablas en la base de datos de prueba antes de correr pytest
-        python -c "from src.infrastructure.database import Base, engine; Base.metadata.create_all(bind=engine)"
+        # Si usas Alembic para las migraciones:
+        alembic upgrade head
+        # O si prefieres ejecutar tu script de inicialización:
+        python seed.py
         pytest --cov=src --cov-report=term-missing
