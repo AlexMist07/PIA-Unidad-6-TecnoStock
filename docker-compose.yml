@@ -10,31 +10,41 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tecnostock_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   app:
     build: .
     container_name: tecnostock_app
-    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/tecnostock_db
+      - APP_ENV=development
+      - PORT=8000
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   tests:
     build: .
     container_name: tecnostock_tests
-    command: pytest -v --cov=src
+    command: pytest -v --cov=src --cov-fail-under=80 --cov-report=term-missing
     volumes:
       - .:/app
     environment:
       - PYTHONPATH=.
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/tecnostock_db
+      - APP_ENV=test
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
 volumes:
   postgres_data:

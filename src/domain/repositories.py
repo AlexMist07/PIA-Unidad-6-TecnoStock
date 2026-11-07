@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
-from uuid import UUID
+
 from src.domain.entities import Producto
+
 
 class RepositorioProducto(ABC):
     @abstractmethod
-    def obtener_por_id(self, producto_id: UUID) -> Optional[Producto]:
+    def obtener_por_id(self, producto_id: int) -> Optional[Producto]:
         pass
 
     @abstractmethod
@@ -21,5 +22,5 @@ class RepositorioProducto(ABC):
         pass
 
     @abstractmethod
-    def eliminar(self, producto_id: UUID) -> bool:
+    def eliminar(self, producto_id: int) -> bool:
         pass
