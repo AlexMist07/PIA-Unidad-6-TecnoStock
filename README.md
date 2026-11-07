@@ -1,5 +1,16 @@
 # TecnoStock API
 
+## Enlaces
+
+- *Repositorio:* https://github.com/AlexMist07/PIA-Unidad-6-TecnoStock
+- *API en vivo (Render):* https://pia-unidad-6-tecnostock.onrender.com
+- *Swagger /docs:* https://pia-unidad-6-tecnostock.onrender.com/docs
+- *Health:* https://pia-unidad-6-tecnostock.onrender.com/health
+
+## Pruebas
+
+25 passed, cobertura 91.94% (python -m pytest --cov=src --cov-fail-under=80)
+
 API REST para la gestión inteligente de inventarios y stock, desarrollada bajo los principios de Domain-Driven Design (DDD) y arquitectura limpia, utilizando FastAPI, PostgreSQL y Docker.
 
 ---
